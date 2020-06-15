@@ -6,3 +6,5 @@ MYA-STM32F4-DRIVERS Debug.launch
 STM32F407VGTX_FLASH.ld
 STM32F407VGTX_RAM.ld
 Startup/
+Src/syscalls.c
+Src/sysmem.c
