@@ -1,0 +1,8 @@
+.cproject
+.project
+.settings/
+Debug/
+MYA-STM32F4-DRIVERS Debug.launch
+STM32F407VGTX_FLASH.ld
+STM32F407VGTX_RAM.ld
+Startup/
