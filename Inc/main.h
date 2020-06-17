@@ -11,5 +11,7 @@
 #include "mya_stm32f407vg.h"
 #include "mya_gpio.h"
 #include "mya_rcc.h"
+#include "mya_nvic.h"
+#include <stdint.h>
 
 #endif /* MAIN_H_ */

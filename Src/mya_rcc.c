@@ -8,9 +8,9 @@
 #include "mya_rcc.h"
 
 void mya_rcc_clock_config(void){
-
+	
 	// sets system clock to 168 MHz
-
+	
 	RCC->CR |= (0x01 << 16); // HSEON -> 1
 	while (!(RCC->CR & (0x01 << 17))) {;} // w8 for HSERDY flag
 	RCC->CR |= (0x01 << 19); // CSSON -> 1
@@ -27,6 +27,8 @@ void mya_rcc_clock_config(void){
 	RCC->CIR |= (0x01 << 19); // Clear HSERDY flag
 	RCC->CIR |= (0x01 << 23); // Clear CSS flag
 
+	
+	
 	return;
 }
 

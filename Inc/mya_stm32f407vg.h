@@ -72,4 +72,75 @@ typedef struct {
 
 
 
+
+/********** NVIC ***********/
+
+
+#define NVIC_BASE 0xE000E100
+
+
+typedef struct NVIC {
+
+	volatile uint32_t ISER[8];
+	volatile uint32_t RESERVED_1[24];
+	volatile uint32_t ICER[8];
+	volatile uint32_t RESERVED_2[24];
+	volatile uint32_t ISPR[8];
+	volatile uint32_t RESERVED_3[24];
+	volatile uint32_t ICPR[8];
+	volatile uint32_t RESERVED_4[24];
+	volatile uint32_t IABR[8];
+	volatile uint32_t RESERVED_5[24];
+	volatile uint32_t IPR[60];
+
+
+} NVIC_Type;
+
+#define NVIC ((NVIC_Type*) NVIC_BASE)
+
+/********** END NVIC ********/
+
+/********** SYSCFG *********/
+
+#define SYSCFG_BASE 0x40013800
+
+typedef struct SYSCFG {
+	
+	volatile uint32_t MEMRMP;
+	volatile uint32_t PMC;
+	volatile uint32_t EXTICR[4];
+	volatile uint32_t RESERVED[3];
+	volatile uint32_t CMPCR;
+
+} SYSCFG_Type;
+
+
+#define SYSCFG ((SYSCFG_Type*) SYSCFG_BASE)
+
+
+/******** END SYSCFG *******/
+
+
+/********** EXTI **********/
+
+
+#define EXTI_BASE 0x40013C00
+
+typedef struct EXTI {
+	
+	volatile uint32_t IMR;
+	volatile uint32_t EMR;
+	volatile uint32_t RTSR;
+	volatile uint32_t FTSR;
+	volatile uint32_t SWIER;
+	volatile uint32_t PR;
+
+} EXTI_Type;
+
+#define EXTI ((EXTI_Type*) EXTI_BASE)
+
+
+/********* END EXTI *********/
+
+
 #endif
