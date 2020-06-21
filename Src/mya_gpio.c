@@ -7,6 +7,7 @@
 
 #include "mya_gpio.h"
 
+
 void mya_gpio_pin_config (GPIO_Type* Port, uint32_t Pin, GPIO_Mode Mode, GPIO_PuPd PuPd){
 
 	Port->MODER &= ~(0x03 << 2 * Pin); // clear first, default to "input"

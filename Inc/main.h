@@ -12,6 +12,9 @@
 #include "mya_gpio.h"
 #include "mya_rcc.h"
 #include "mya_nvic.h"
+#include "mya_exti.h"
+
+
 #include <stdint.h>
 
 #endif /* MAIN_H_ */

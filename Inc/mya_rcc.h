@@ -23,6 +23,7 @@
 #define RCC_GPIOK_EN() (RCC->AHB1ENR |= (0x01 << 10))
 
 #define RCC_SYSCFG_EN() (RCC->APB2ENR |= 0x00004000)
+#define RCC_SYSCFG_DIS() (RCC->APB2ENR &= ~(0x00004000))
 
 
 

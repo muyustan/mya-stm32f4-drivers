@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#define WRITE_REG(REGADDR, WORD) (*((uint32_t *) REGADDR) = WORD) 
+#define READ_REG(REGADDR) *((uint32_t *) REGADDR) 
 
 /************ RCC ***********/
 
@@ -141,6 +143,29 @@ typedef struct EXTI {
 
 
 /********* END EXTI *********/
+
+
+/************ SCB (System Control Block) *************/
+
+
+#define SCB_BASE 0xE000ED00 // ACTLR excluded
+
+typedef struct SCB {
+
+	volatile uint32_t CPUID;
+	volatile uint32_t ICSR;
+	volatile uint32_t VTOR; // vector table offset register
+	// continue filling with AIRCR register
+
+
+} SCB_Type;
+
+
+
+
+#define SCB ((SCB_Type*) SCB_BASE)
+
+/*********** END SCB ************/
 
 
 #endif

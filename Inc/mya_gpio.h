@@ -32,13 +32,12 @@
 #define GPIOC_EN() (RCC->AHB1ENR |= (0x01 << 2))
 #define GPIOD_EN() (RCC->AHB1ENR |= (0x01 << 3))
 #define GPIOE_EN() (RCC->AHB1ENR |= (0x01 << 4))
-#define GPIOF_EN() (RCC->AHB1ENR |= (0x01 << 5))
+#define GPIOF_EN() (RCC->AHB1ENR |= (0x01 << 5)) 
 #define GPIOG_EN() (RCC->AHB1ENR |= (0x01 << 6))
 #define GPIOH_EN() (RCC->AHB1ENR |= (0x01 << 7))
 #define GPIOI_EN() (RCC->AHB1ENR |= (0x01 << 8))
 #define GPIOJ_EN() (RCC->AHB1ENR |= (0x01 << 9))
 #define GPIOK_EN() (RCC->AHB1ENR |= (0x01 << 10))
-
 
 
 typedef enum MODE {
