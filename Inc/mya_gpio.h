@@ -27,17 +27,18 @@
 #define GPIO_PIN_14 0x00004000
 #define GPIO_PIN_15 0x00008000
 
-#define GPIOA_EN() (RCC->AHB1ENR |= (0x01 << 0))
-#define GPIOB_EN() (RCC->AHB1ENR |= (0x01 << 1))
-#define GPIOC_EN() (RCC->AHB1ENR |= (0x01 << 2))
-#define GPIOD_EN() (RCC->AHB1ENR |= (0x01 << 3))
-#define GPIOE_EN() (RCC->AHB1ENR |= (0x01 << 4))
-#define GPIOF_EN() (RCC->AHB1ENR |= (0x01 << 5)) 
-#define GPIOG_EN() (RCC->AHB1ENR |= (0x01 << 6))
-#define GPIOH_EN() (RCC->AHB1ENR |= (0x01 << 7))
-#define GPIOI_EN() (RCC->AHB1ENR |= (0x01 << 8))
-#define GPIOJ_EN() (RCC->AHB1ENR |= (0x01 << 9))
-#define GPIOK_EN() (RCC->AHB1ENR |= (0x01 << 10))
+#define GPIOA_EN() RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN
+#define GPIOB_EN() RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN
+#define GPIOC_EN() RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN
+#define GPIOD_EN() RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN
+#define GPIOE_EN() RCC->AHB1ENR |= RCC_AHB1ENR_GPIOEEN
+#define GPIOF_EN() RCC->AHB1ENR |= RCC_AHB1ENR_GPIOFEN 
+#define GPIOG_EN() RCC->AHB1ENR |= RCC_AHB1ENR_GPIOGEN
+#define GPIOH_EN() RCC->AHB1ENR |= RCC_AHB1ENR_GPIOHEN
+#define GPIOI_EN() RCC->AHB1ENR |= RCC_AHB1ENR_GPIOIEN
+#define GPIOJ_EN() RCC->AHB1ENR |= RCC_AHB1ENR_GPIOJEN
+#define GPIOK_EN() RCC->AHB1ENR |= RCC_AHB1ENR_GPIOKEN
+
 
 
 typedef enum MODE {
@@ -67,8 +68,11 @@ typedef enum PIN_STATE {
 
 
 void mya_gpio_pin_config (GPIO_Type* Port, uint32_t Pin, GPIO_Mode Mode, GPIO_PuPd PuPd);
+
 uint8_t mya_gpio_pin_read (GPIO_Type* Port, uint16_t Pin);
+
 void mya_gpio_pin_write (GPIO_Type* Port, uint16_t Pin, GPIO_PinState State);
+
 void mya_gpio_pin_toggle (GPIO_Type* Port, uint16_t Pin);
 
 

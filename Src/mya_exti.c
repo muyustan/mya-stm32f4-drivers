@@ -1,6 +1,6 @@
 #include "mya_exti.h"
 
-
+/* EXTI should be enabled/initialized befor using */
 void mya_exti_init(){
 
 	RCC_SYSCFG_EN(); // activate SYSCFG clock
@@ -25,6 +25,7 @@ void mya_exti_config(EXTI_EXTIx EXTIx, EXTI_PORT_x Port, EXTI_TRIG_Type TrigEdge
         x++;
     }
 
+
 	EXTI->IMR |= EXTIx; // unmask EXTIx
     SYSCFG->EXTICR[x/4] &= ~((0x0F << ((x%4)*4))); // first clear the bitfield
 	SYSCFG->EXTICR[x/4] |= (Port << ((x%4)*4)); // choose Pyx for EXTIx line
@@ -32,13 +33,11 @@ void mya_exti_config(EXTI_EXTIx EXTIx, EXTI_PORT_x Port, EXTI_TRIG_Type TrigEdge
     if (TrigEdge == EXTI_TRIG_RISING) {
 
         EXTI->RTSR |= EXTIx;
-
     }
 
     else if (TrigEdge == EXTI_TRIG_FALLING) {
 
         EXTI->FTSR |= EXTIx;
-
     }
 
     else if(TrigEdge == EXTI_TRIG_RISING_FALLING) {
@@ -53,7 +52,12 @@ void mya_exti_config(EXTI_EXTIx EXTIx, EXTI_PORT_x Port, EXTI_TRIG_Type TrigEdge
         ;
     }
 
+    return;
+}
 
+void mya_exti_clear_pending_it(EXTI_EXTIx EXTIx) {
 
+    EXTI->PR |= EXTIx; // clear pending bit by writing 1
+    
     return;
 }

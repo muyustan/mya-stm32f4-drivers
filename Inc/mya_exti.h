@@ -1,7 +1,8 @@
 #include "mya_stm32f407vg.h"
 #include "mya_rcc.h"
 
-typedef enum LINE {
+
+typedef enum LINE_MASK {
 
     EXTI_EXTI0 = 0x01,
     EXTI_EXTI1 = 0x02,
@@ -58,3 +59,6 @@ typedef enum TRIGGER_EDGE {
 
 void mya_exti_init();
 void mya_exti_config(EXTI_EXTIx EXTIx, EXTI_PORT_x Port, EXTI_TRIG_Type TrigEdge);
+void mya_exti_clear_pending_it(EXTI_EXTIx EXTIx);
+
+

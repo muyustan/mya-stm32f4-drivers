@@ -5,9 +5,7 @@
 #include "mya_stm32f407vg.h"
 
 
-
-
-typedef enum {
+typedef enum IRQn {
     
     NVIC_WWDG = 0x00,
     NVIC_PVD = 0x01,
@@ -30,10 +28,10 @@ typedef enum {
     NVIC_ADC = 0x12, // ADC1, ADC2 and ADC3 global interrupts
     // to be continued...
 
-} NVIC_x;
+} NVIC_n;
 
 
 
-void mya_nvic_enable(NVIC_x x);
+void mya_nvic_enable(NVIC_n n);
 
 #endif // MYA_NVIC_H

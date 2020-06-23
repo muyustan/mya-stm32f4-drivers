@@ -8,12 +8,12 @@ void dummy_delay (int t){
 
 void EXTI0_IRQHandler(){
 
+	EXTI->PR |= (0x01); // clear pending bits
 
 	mya_gpio_pin_write(GPIOD, GPIO_PIN_14, 1);
 	dummy_delay(1680000);
 	mya_gpio_pin_write(GPIOD, GPIO_PIN_14, 0);
 
-	EXTI->PR |= (0x01); // clear pending bits
 
 
 }
@@ -89,11 +89,14 @@ int main(void)
 		// 	/* dummy delay */
 		// }
 		
-		dummy_delay(3000000);
 		mya_gpio_pin_write(GPIOD, GPIO_PIN_15, 1);
-		dummy_delay(3000000);
+		mya_delay_ms(5000);
+		//dummy_delay(300000);
 		mya_gpio_pin_write(GPIOD, GPIO_PIN_15, 0);
+		// dummy_delay(420000);
+		mya_delay_ms(1500);
 		
+
 
 	}
 
