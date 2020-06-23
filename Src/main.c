@@ -14,18 +14,6 @@ void EXTI0_IRQHandler(){
 	dummy_delay(1680000);
 	mya_gpio_pin_write(GPIOD, GPIO_PIN_14, 0);
 
-
-
-}
-
-void nevermind1(){
-
-	mya_gpio_pin_write(GPIOD, GPIO_PIN_14, 1);
-	dummy_delay(1680000);
-	mya_gpio_pin_write(GPIOD, GPIO_PIN_14, 0);
-
-	EXTI->PR |= (0x01); // clear pending bits
-
 }
 
 
@@ -82,21 +70,12 @@ int main(void)
 	//
 	for(;;){
 
-		//mya_gpio_pin_toggle(GPIOD, GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14);
-	
-		// for (int i = 0; i < 99999; i++)
-		// {
-		// 	/* dummy delay */
-		// }
-		
 		mya_gpio_pin_write(GPIOD, GPIO_PIN_15, 1);
 		mya_delay_ms(5000);
 		//dummy_delay(300000);
 		mya_gpio_pin_write(GPIOD, GPIO_PIN_15, 0);
 		// dummy_delay(420000);
 		mya_delay_ms(1500);
-		
-
 
 	}
 
