@@ -56,8 +56,31 @@
 	#define RCC_CFGR_SWS_HSE ((uint32_t)0x00000001U) // HSE used as system clock
 	#define RCC_CFGR_SWS_PLL ((uint32_t)0x00000002U) // PLL used as system clock
 #define RCC_CFGR_HPRE	((uint32_t)0x000000F0U)
+	#define RCC_CFGR_HPRE_DIV1		((uint32_t)0x00000000U)
+	#define RCC_CFGR_HPRE_DIV2		((uint32_t)0x00000080U)
+	#define RCC_CFGR_HPRE_DIV4		((uint32_t)0x00000090U)
+	#define RCC_CFGR_HPRE_DIV8		((uint32_t)0x000000A0U)
+	#define RCC_CFGR_HPRE_DIV16		((uint32_t)0x000000B0U)
+	#define RCC_CFGR_HPRE_DIV64		((uint32_t)0x000000C0U)
+	#define RCC_CFGR_HPRE_DIV128	((uint32_t)0x000000D0U)
+	#define RCC_CFGR_HPRE_DIV256	((uint32_t)0x000000E0U)
+	#define RCC_CFGR_HPRE_DIV512	((uint32_t)0x000000F0U)
 #define RCC_CFGR_PPRE1 	((uint32_t)0x00001C00U)
+	#define RCC_CFGR_PPRE1_DIV1 	((uint32_t)0x00000000U)
+	#define RCC_CFGR_PPRE1_DIV2 	((uint32_t)0x00001000U)
+	#define RCC_CFGR_PPRE1_DIV4 	((uint32_t)0x00001400U)
+	#define RCC_CFGR_PPRE1_DIV8 	((uint32_t)0x00001800U)
+	#define RCC_CFGR_PPRE1_DIV16 	((uint32_t)0x00001C00U)
 #define RCC_CFGR_PPRE2 	((uint32_t)0x0000E000U)
+	#define RCC_CFGR_PPRE2_DIV1 	((uint32_t)0x00000000U)
+	#define RCC_CFGR_PPRE2_DIV2 	((uint32_t)0x00008000U)
+	#define RCC_CFGR_PPRE2_DIV4 	((uint32_t)0x0000A000U)
+	#define RCC_CFGR_PPRE2_DIV8 	((uint32_t)0x0000C000U)
+	#define RCC_CFGR_PPRE2_DIV16 	((uint32_t)0x0000E000U)
+
+	/* define bit masks for CIR */
+
+#define RCC_CIR_HSERDYC ((uint32_t)0x00080000U)
 
 #define RCC_BASE 0x40023800
 

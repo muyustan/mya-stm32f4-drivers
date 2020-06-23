@@ -16,7 +16,7 @@ void mya_rcc_clock_config(void){
 	RCC->CR |= RCC_CR_HSEON; // HSEON -> 1 Enable HSE clock
 	while (!(RCC->CR & RCC_CR_HSERDY)) {;} // w8 for HSERDY flag
 
-	// RCC->CR |= RCC_CR_CSSON; // CSSON -> 1
+	RCC->CR |= RCC_CR_CSSON; // CSSON -> 1
 
 	/* disable PLL before changes */
 	RCC->CR &= ~RCC_CR_PLLON;
@@ -44,10 +44,10 @@ void mya_rcc_clock_config(void){
 	RCC->CFGR &= ~RCC_CFGR_HPRE; // AHB prescaler = 1
 
 	RCC->CFGR &= ~RCC_CFGR_PPRE1; // APB1 prescaler clear
-	RCC->CFGR |= (0x05 << 10); // APB1 prescaler = 4
+	RCC->CFGR |= RCC_CFGR_PPRE1_DIV4; // APB1 prescaler = 4
 	
 	RCC->CFGR &= ~RCC_CFGR_PPRE2; // APB2 prescaler clear
-	RCC->CFGR |= (0x04 << 13); // APB2 prescaler = 2
+	RCC->CFGR |= RCC_CFGR_PPRE2_DIV2; // APB2 prescaler = 2
 
 	RCC->CR |= RCC_CR_PLLON; // activate PLL
 	while (!(RCC->CR & RCC_CR_PLLRDY)) {} // wait till PLL is locked/ready
@@ -56,9 +56,6 @@ void mya_rcc_clock_config(void){
 	RCC->CFGR |= RCC_CFGR_SW_PLL; // choose PLL as system clock
 	/* Wait for SYSCLK to be PPL */
 	while((RCC->CFGR & RCC_CFGR_SWS_PLL) != RCC_CFGR_SWS_PLL);
-
-	// RCC->CIR |= (0x01 << 23); // Clear CSS flag
-	// RCC->CIR |= (0x01 << 19); // Clear HSERDY flag
 
 	return;
 }
