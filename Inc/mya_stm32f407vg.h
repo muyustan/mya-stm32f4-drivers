@@ -2,6 +2,8 @@
 #define MYA_STM32F407VG_H
 
 #include <stdint.h>
+#include <stdbool.h>
+#include <math.h>
 
 #define WRITE_MEM(MEMADDR, WORD) (*((uint32_t *) MEMADDR) = WORD) 
 #define READ_MEM(MEMADDR) *((uint32_t *) MEMADDR)
@@ -43,31 +45,31 @@
 
 /* define bit masks for APB2ENR */
 
-#define RCC_APB2ENR_TIM1EN			((uint32_t))0x00000001U)
-#define RCC_APB2ENR_TIM8EN			((uint32_t))0x00000002U)
+#define RCC_APB2ENR_TIM1EN			((uint32_t)0x00000001U)
+#define RCC_APB2ENR_TIM8EN			((uint32_t)0x00000002U)
 // bits [3:2] reserved
-#define RCC_APB2ENR_USART1EN		((uint32_t))0x00000010U)
-#define RCC_APB2ENR_USART6EN		((uint32_t))0x00000020U)
+#define RCC_APB2ENR_USART1EN		((uint32_t)0x00000010U)
+#define RCC_APB2ENR_USART6EN		((uint32_t)0x00000020U)
 // bits [7:6] reserved
-#define RCC_APB2ENR_ADC1EN			((uint32_t))0x00000100U)
-#define RCC_APB2ENR_ADC2EN			((uint32_t))0x00000200U)
-#define RCC_APB2ENR_ADC3EN			((uint32_t))0x00000400U)
-#define RCC_APB2ENR_SDIOEN			((uint32_t))0x00000800U)
-#define RCC_APB2ENR_SPI1EN			((uint32_t))0x00001000U)
-#define RCC_APB2ENR_SPI4EN			((uint32_t))0x00002000U)
-#define RCC_APB2ENR_SYSCFGEN		((uint32_t))0x00004000U)
+#define RCC_APB2ENR_ADC1EN			((uint32_t)0x00000100U)
+#define RCC_APB2ENR_ADC2EN			((uint32_t)0x00000200U)
+#define RCC_APB2ENR_ADC3EN			((uint32_t)0x00000400U)
+#define RCC_APB2ENR_SDIOEN			((uint32_t)0x00000800U)
+#define RCC_APB2ENR_SPI1EN			((uint32_t)0x00001000U)
+#define RCC_APB2ENR_SPI4EN			((uint32_t)0x00002000U)
+#define RCC_APB2ENR_SYSCFGEN		((uint32_t)0x00004000U)
 // bit 15 reserved
-#define RCC_APB2ENR_TIM9			((uint32_t))0x00010000U)
-#define RCC_APB2ENR_TIM10			((uint32_t))0x00020000U)
-#define RCC_APB2ENR_TIM11			((uint32_t))0x00040000U)
-// reserved							((uint32_t))0x00080000U)
-#define RCC_APB2ENR_SPI5EN			((uint32_t))0x00100000U)
-#define RCC_APB2ENR_SPI6EN			((uint32_t))0x00200000U)
-#define RCC_APB2ENR_SAI1EN			((uint32_t))0x00400000U)
-// reserved							((uint32_t))0x00800000U)
-// reserved							((uint32_t))0x01000000U)
-// reserved							((uint32_t))0x02000000U)
-#define RCC_APB2ENR_LTDCEN			((uint32_t))0x04000000U)
+#define RCC_APB2ENR_TIM9			((uint32_t)0x00010000U)
+#define RCC_APB2ENR_TIM10			((uint32_t)0x00020000U)
+#define RCC_APB2ENR_TIM11			((uint32_t)0x00040000U)
+// reserved							((uint32_t)0x00080000U)
+#define RCC_APB2ENR_SPI5EN			((uint32_t)0x00100000U)
+#define RCC_APB2ENR_SPI6EN			((uint32_t)0x00200000U)
+#define RCC_APB2ENR_SAI1EN			((uint32_t)0x00400000U)
+// reserved							((uint32_t)0x00800000U)
+// reserved							((uint32_t)0x01000000U)
+// reserved							((uint32_t)0x02000000U)
+#define RCC_APB2ENR_LTDCEN			((uint32_t)0x04000000U)
 // bits [31:27] reserved
 
 
@@ -452,16 +454,16 @@ typedef struct TIM2_to_TIM5
 
 /* define bit masks for SR */
 
-#define USART_SR_PE			((uint32_t))0x00000001U)
-#define USART_SR_FE			((uint32_t))0x00000002U)
-#define USART_SR_NF			((uint32_t))0x00000004U)
-#define USART_SR_ORE		((uint32_t))0x00000008U)
-#define USART_SR_IDLE		((uint32_t))0x00000010U)
-#define USART_SR_RXNE		((uint32_t))0x00000020U)
-#define USART_SR_TC			((uint32_t))0x00000040U)
-#define USART_SR_TXE		((uint32_t))0x00000080U)
-#define USART_SR_LBD		((uint32_t))0x00000100U)
-#define USART_SR_CTS		((uint32_t))0x00000200U)
+#define USART_SR_PE			((uint32_t)0x00000001U)
+#define USART_SR_FE			((uint32_t)0x00000002U)
+#define USART_SR_NF			((uint32_t)0x00000004U)
+#define USART_SR_ORE		((uint32_t)0x00000008U)
+#define USART_SR_IDLE		((uint32_t)0x00000010U)
+#define USART_SR_RXNE		((uint32_t)0x00000020U)
+#define USART_SR_TC			((uint32_t)0x00000040U)
+#define USART_SR_TXE		((uint32_t)0x00000080U)
+#define USART_SR_LBD		((uint32_t)0x00000100U)
+#define USART_SR_CTS		((uint32_t)0x00000200U)
 
 /* define bit masks for BRR */
 
@@ -470,22 +472,22 @@ typedef struct TIM2_to_TIM5
 
 /* define bit masks for CR1 */
 
-#define USART_CR1_SBK			((uint32_t))0x00000001U)
-#define USART_CR1_RWU			((uint32_t))0x00000002U)
-#define USART_CR1_RE			((uint32_t))0x00000004U)
-#define USART_CR1_TE			((uint32_t))0x00000008U)
-#define USART_CR1_IDLEIE		((uint32_t))0x00000010U)
-#define USART_CR1_RXNEIE		((uint32_t))0x00000020U)
-#define USART_CR1_TCIE			((uint32_t))0x00000040U)
-#define USART_CR1_TXEIE			((uint32_t))0x00000080U)
-#define USART_CR1_PEIE			((uint32_t))0x00000100U)
-#define USART_CR1_PS			((uint32_t))0x00000200U)
-#define USART_CR1_PCE			((uint32_t))0x00000400U)
-#define USART_CR1_WAKE			((uint32_t))0x00000800U)
-#define USART_CR1_M				((uint32_t))0x00001000U)
-#define USART_CR1_UE			((uint32_t))0x00002000U)
+#define USART_CR1_SBK			((uint32_t)0x00000001U)
+#define USART_CR1_RWU			((uint32_t)0x00000002U)
+#define USART_CR1_RE			((uint32_t)0x00000004U)
+#define USART_CR1_TE			((uint32_t)0x00000008U)
+#define USART_CR1_IDLEIE		((uint32_t)0x00000010U)
+#define USART_CR1_RXNEIE		((uint32_t)0x00000020U)
+#define USART_CR1_TCIE			((uint32_t)0x00000040U)
+#define USART_CR1_TXEIE			((uint32_t)0x00000080U)
+#define USART_CR1_PEIE			((uint32_t)0x00000100U)
+#define USART_CR1_PS			((uint32_t)0x00000200U)
+#define USART_CR1_PCE			((uint32_t)0x00000400U)
+#define USART_CR1_WAKE			((uint32_t)0x00000800U)
+#define USART_CR1_M				((uint32_t)0x00001000U)
+#define USART_CR1_UE			((uint32_t)0x00002000U)
 // bit 14 is reserved
-#define USART_CR1_OVER8			((uint32_t))0x00008000U)
+#define USART_CR1_OVER8			((uint32_t)0x00008000U)
 
 
 typedef struct USART_UART {

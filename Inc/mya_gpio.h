@@ -74,6 +74,11 @@
 
 
 
+#define GPIO_AF_USART1_TX			(uint8_t)0x07U
+#define GPIO_AF_USART1_RX			(uint8_t)0x07U
+
+
+
 //#define GPIO_AF_MCO1	(uint8_t)0x08U
 //#define GPIO_AF_MCO1	(uint8_t)0x09U
 //#define GPIO_AF_MCO1	(uint8_t)0x0AU
@@ -86,30 +91,44 @@
 
 
 
-
-
-
 /* end alternate function configurations */
 
 
 
-typedef enum MODE {
+typedef enum MODER {
 
-	GPIO_Mode_INPUT = 0b00,
-	GPIO_Mode_OUTPUT = 0b01,
-	GPIO_Mode_AF = 0b10,
-	GPIO_Mode_ANALOG = 0b11
+	GPIO_Mode_INPUT =	0b00,
+	GPIO_Mode_OUTPUT =	0b01,
+	GPIO_Mode_AF =		0b10,
+	GPIO_Mode_ANALOG =	0b11
 
 } GPIO_Mode;
 
-typedef enum OTYPE {
+typedef enum PUPDR {
 
-	GPIO_PuPd_NOPULL= 0b00,
-	GPIO_PuPd_UP = 0b01,
-	GPIO_PuPd_DOWN = 0b10
+	GPIO_PuPd_NOPULL=	0b00,
+	GPIO_PuPd_UP =		0b01,
+	GPIO_PuPd_DOWN =	0b10
 	// 0x03 is reserved
 
 } GPIO_PuPd;
+
+typedef enum OTYPER {
+
+	GPIO_OType_PushPull =	0b0,
+	GPIO_OType_OpenDrain =	0b1,
+
+} GPIO_OType;
+
+typedef enum OSPEEDR {
+
+	GPIO_OSpeed_Low =		0b00,
+	GPIO_OSpeed_Medium =	0b01,
+	GPIO_OSpeed_High =		0b10,
+	GPIO_OSpeed_VeryHigh =	0b11,
+
+
+} GPIO_OSpeed;
 
 typedef enum PIN_STATE {
 
@@ -119,7 +138,7 @@ typedef enum PIN_STATE {
 } GPIO_PinState;
 
 
-void mya_gpio_pin_config (GPIO_Type* GPIOx, uint32_t GPIO_PIN_x, GPIO_Mode Mode, GPIO_PuPd PuPd);
+void mya_gpio_pin_config (GPIO_Type* GPIOx, uint32_t GPIO_PIN_x, GPIO_Mode Mode, GPIO_OType OType, GPIO_PuPd PuPd, GPIO_OSpeed OutSpeed);
 
 uint8_t mya_gpio_pin_read (GPIO_Type* GPIOx, uint16_t GPIO_PIN_x);
 

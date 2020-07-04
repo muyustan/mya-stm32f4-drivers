@@ -36,6 +36,8 @@
 #define RCC_TIM13_EN()  (RCC->APB1ENR |= RCC_APB1ENR_TIM13EN)
 #define RCC_TIM14_EN()  (RCC->APB1ENR |= RCC_APB1ENR_TIM14EN)
 
+#define RCC_USART1_EN() (RCC->APB2ENR |= RCC_APB2ENR_USART1EN)
+
 void mya_rcc_clock_config(void);
 
 #endif /* MYA_RCC_H_ */

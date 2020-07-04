@@ -8,39 +8,33 @@
 #include "mya_gpio.h"
 
 
-void mya_gpio_pin_config (GPIO_Type* GPIOx, uint32_t GPIO_PIN_x, GPIO_Mode Mode, GPIO_PuPd PuPd){
+void mya_gpio_pin_config (GPIO_Type* GPIOx, uint32_t GPIO_PIN_x, GPIO_Mode Mode, GPIO_OType OType, GPIO_PuPd PuPd, GPIO_OSpeed OutSpeed){
 
-	GPIOx->MODER &= ~(0x03 << 2 * GPIO_PIN_x); // clear first, default to "input"
-	GPIOx->OTYPER &= ~(0x01 << GPIO_PIN_x); // clear first, default to "push-pull"
-	GPIOx->PUPDR &= ~(0x03 << 2 * GPIO_PIN_x); // clear first, default to "no pull up or pull down"
-	GPIOx->OSPEEDR &= ~(0x03 << 2 * GPIO_PIN_x); // clear first, default to "low speed"
+	uint32_t temp = 0x00;
+	uint8_t pos = 0;
 
-	GPIOx->MODER |= (Mode << 2 * GPIO_PIN_x); // set the mode
-	// GPIOx->OSPEEDR |= (OutSpeed << 2 * Pin); // set the output speed
+	for (pos = 0; pos <= 15; pos++) {
 
-	if (Mode == GPIO_Mode_OUTPUT){
+		temp = (0x01 << pos);
 
-		GPIOx->PUPDR &= ~(0x00 << 2 * GPIO_PIN_x); // ensure no internal pull up or down
+		if (temp & GPIO_PIN_x) {
+
+			GPIOx->MODER &= ~(0x03 << 2 * pos); // clear first, default to "input"
+			GPIOx->MODER |= (Mode << 2 * pos); // set the mode
+
+			GPIOx->OTYPER &= ~(0x01 << pos); // clear first, default to "push-pull"
+			GPIOx->OTYPER |= (OType << pos); // set output type
+
+			GPIOx->PUPDR &= ~(0x03 << 2 * pos); // clear first, default to "no pull up or pull down"
+			GPIOx->PUPDR |= (PuPd << 2 * pos); // set pull up pull down choice
+
+			GPIOx->OSPEEDR &= (0x03 << 2 * pos); // clear the bit field
+			GPIOx->OSPEEDR |= (OutSpeed << 2 * pos); // set the output speed
+
+		}
 
 	}
-
-	else if (Mode == GPIO_Mode_INPUT){
-
-		GPIOx->PUPDR &= ~(PuPd << 2 * GPIO_PIN_x); // set the pu-pd choice
-
-	}
-
-	else if (Mode == GPIO_Mode_AF) {
-		; // do nothing
-	}
-
-	else if (Mode == GPIO_Mode_ANALOG) {
-		; // do nothing
-	}
-
-	else {;} // invalid input for Mode
-
-
+	
 	return;
 
 }
@@ -88,7 +82,7 @@ void mya_gpio_pin_toggle(GPIO_Type* GPIOx, uint16_t GPIO_PIN_x){
 
 void mya_gpio_alternate_func_config(GPIO_Type* GPIOx, uint8_t pinNumber, uint8_t GPIO_AF_x){
 
-	GPIOx->AFR[pinNumber >> 3] |= (GPIO_AF_x << (4 * pinNumber));
+	GPIOx->AFR[pinNumber >> 3] |= (GPIO_AF_x << (4 * (pinNumber % 8)));
 
 	return;
 }
