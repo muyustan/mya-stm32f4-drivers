@@ -3,8 +3,10 @@
 
 #include <stdint.h>
 
-#define WRITE_REG(REGADDR, WORD) (*((uint32_t *) REGADDR) = WORD) 
-#define READ_REG(REGADDR) *((uint32_t *) REGADDR) 
+#define WRITE_MEM(MEMADDR, WORD) (*((uint32_t *) MEMADDR) = WORD) 
+#define READ_MEM(MEMADDR) *((uint32_t *) MEMADDR)
+#define HIGH	1
+#define LOW		0
 
 /************ RCC ***********/
 
@@ -24,6 +26,50 @@
 #define RCC_AHB1ENR_CRCEN		((uint32_t)0x000001000U)
 #define RCC_AHB1ENR_BKPSRAMEN	((uint32_t)0x000040000U)
 // ..........
+
+
+/* define bit masks for APB1ENR */
+
+#define RCC_APB1ENR_TIM2EN	((uint32_t))0x00000001U)
+#define RCC_APB1ENR_TIM3EN	((uint32_t))0x00000002U)
+#define RCC_APB1ENR_TIM4EN	((uint32_t))0x00000004U)
+#define RCC_APB1ENR_TIM5EN	((uint32_t))0x00000008U)
+#define RCC_APB1ENR_TIM6EN	((uint32_t))0x00000010U)
+#define RCC_APB1ENR_TIM7EN	((uint32_t))0x00000020U)
+#define RCC_APB1ENR_TIM12EN	((uint32_t))0x00000040U)
+#define RCC_APB1ENR_TIM13EN	((uint32_t))0x00000080U)
+#define RCC_APB1ENR_TIM14EN	((uint32_t))0x00000100U)
+// .........
+
+/* define bit masks for APB2ENR */
+
+#define RCC_APB2ENR_TIM1EN			((uint32_t))0x00000001U)
+#define RCC_APB2ENR_TIM8EN			((uint32_t))0x00000002U)
+// bits [3:2] reserved
+#define RCC_APB2ENR_USART1EN		((uint32_t))0x00000010U)
+#define RCC_APB2ENR_USART6EN		((uint32_t))0x00000020U)
+// bits [7:6] reserved
+#define RCC_APB2ENR_ADC1EN			((uint32_t))0x00000100U)
+#define RCC_APB2ENR_ADC2EN			((uint32_t))0x00000200U)
+#define RCC_APB2ENR_ADC3EN			((uint32_t))0x00000400U)
+#define RCC_APB2ENR_SDIOEN			((uint32_t))0x00000800U)
+#define RCC_APB2ENR_SPI1EN			((uint32_t))0x00001000U)
+#define RCC_APB2ENR_SPI4EN			((uint32_t))0x00002000U)
+#define RCC_APB2ENR_SYSCFGEN		((uint32_t))0x00004000U)
+// bit 15 reserved
+#define RCC_APB2ENR_TIM9			((uint32_t))0x00010000U)
+#define RCC_APB2ENR_TIM10			((uint32_t))0x00020000U)
+#define RCC_APB2ENR_TIM11			((uint32_t))0x00040000U)
+// reserved							((uint32_t))0x00080000U)
+#define RCC_APB2ENR_SPI5EN			((uint32_t))0x00100000U)
+#define RCC_APB2ENR_SPI6EN			((uint32_t))0x00200000U)
+#define RCC_APB2ENR_SAI1EN			((uint32_t))0x00400000U)
+// reserved							((uint32_t))0x00800000U)
+// reserved							((uint32_t))0x01000000U)
+// reserved							((uint32_t))0x02000000U)
+#define RCC_APB2ENR_LTDCEN			((uint32_t))0x04000000U)
+// bits [31:27] reserved
+
 
 /* define bit masks for PLLCFGR */
 
@@ -114,8 +160,17 @@ typedef struct {
 
 /******* GPIO ********/
 
-#define GPIO_BASE 0x40020000
-#define GPIO_MEM_SIZE 0x0400
+#define GPIOA_BASE 0x40020000U
+#define GPIOB_BASE 0x40020400U
+#define GPIOC_BASE 0x40020800U
+#define GPIOD_BASE 0x40020C00U
+#define GPIOE_BASE 0x40021000U
+#define GPIOF_BASE 0x40021400U
+#define GPIOG_BASE 0x40021800U
+#define GPIOH_BASE 0x40021C00U
+#define GPIOI_BASE 0x40022000U
+#define GPIOJ_BASE 0x40022400U
+#define GPIOK_BASE 0x40022800U
 
 typedef struct {
 
@@ -132,21 +187,19 @@ typedef struct {
 
 } GPIO_Type;
 
-#define GPIOA ((GPIO_Type*) GPIO_BASE)
-#define GPIOB ((GPIO_Type*) (GPIO_BASE + GPIO_MEM_SIZE))
-#define GPIOC ((GPIO_Type*) (GPIO_BASE + 2 * GPIO_MEM_SIZE))
-#define GPIOD ((GPIO_Type*) (GPIO_BASE + 3 * GPIO_MEM_SIZE))
-#define GPIOE ((GPIO_Type*) (GPIO_BASE + 4 * GPIO_MEM_SIZE))
-#define GPIOF ((GPIO_Type*) (GPIO_BASE + 5 * GPIO_MEM_SIZE))
-#define GPIOG ((GPIO_Type*) (GPIO_BASE + 6 * GPIO_MEM_SIZE))
-#define GPIOH ((GPIO_Type*) (GPIO_BASE + 7 * GPIO_MEM_SIZE))
-#define GPIOI ((GPIO_Type*) (GPIO_BASE + 8 * GPIO_MEM_SIZE))
-#define GPIOJ ((GPIO_Type*) (GPIO_BASE + 9 * GPIO_MEM_SIZE))
-#define GPIOK ((GPIO_Type*) (GPIO_BASE + 10 * GPIO_MEM_SIZE))
+#define GPIOA ((GPIO_Type*) GPIOA_BASE)
+#define GPIOB ((GPIO_Type*) GPIOB_BASE)
+#define GPIOC ((GPIO_Type*) GPIOC_BASE)
+#define GPIOD ((GPIO_Type*) GPIOD_BASE)
+#define GPIOE ((GPIO_Type*) GPIOE_BASE)
+#define GPIOF ((GPIO_Type*) GPIOF_BASE)
+#define GPIOG ((GPIO_Type*) GPIOG_BASE)
+#define GPIOH ((GPIO_Type*) GPIOH_BASE)
+#define GPIOI ((GPIO_Type*) GPIOI_BASE)
+#define GPIOJ ((GPIO_Type*) GPIOJ_BASE)
+#define GPIOK ((GPIO_Type*) GPIOK_BASE)
 
 /*********** END GPIO *************/
-
-
 
 
 /********** NVIC ***********/
@@ -291,6 +344,173 @@ typedef struct FLASH {
 
 
 /********* END FLASH **************/
+
+/******** TIMERS ************/
+
+#define TIM_CR_CEN	0x0001U
+#define TIM_CR_UDIS	0x0002U
+#define TIM_CR_URS	0x0004U
+#define TIM_CR_OPM	0x0008U
+#define TIM_CR_DIR	0x0010U
+#define TIM_CR_CMS	0x0060U
+#define TIM_CR_ARPE	0x0080U
+#define TIM_CR_CKD	0x0300U
+
+/******** TIM1 and TIM8 ***********/
+
+#define TIM1_BASE 0x40010000
+#define TIM8_BASE 0x40010400
+
+typedef struct TIM1_and_TIM8
+{
+	volatile uint32_t CR1; // offset 0x00
+	volatile uint32_t CR2;
+	volatile uint32_t SMCR;
+	volatile uint32_t DIER;
+	volatile uint32_t SR;
+	volatile uint32_t EGR;
+	volatile uint32_t CCMR1;
+	volatile uint32_t CCMR2;
+	volatile uint32_t CCER;
+	volatile uint32_t CNT;
+	volatile uint32_t PSC;
+	volatile uint32_t ARR;
+	volatile uint32_t RCR;
+	volatile uint32_t CCR1;
+	volatile uint32_t CCR2;
+	volatile uint32_t CCR3;
+	volatile uint32_t CCR4;
+	volatile uint32_t BDTR;
+	volatile uint32_t DCR;
+	volatile uint32_t DMAR; // offset 0x4C
+
+} TIM_1_8_Type;
+
+
+#define TIM1 ((TIM_1_8_Type*) TIM1_BASE)
+#define TIM8 ((TIM_1_8_Type*) TIM8_BASE)
+
+
+/******* END TIM1 and TIM8 ********/ 
+
+/******** TIM2 to TIM5 ***********/
+
+#define TIM2_BASE 0x40000000
+#define TIM3_BASE 0x40000400
+#define TIM4_BASE 0x40000800
+#define TIM5_BASE 0x40000C00
+
+typedef struct TIM2_to_TIM5
+{
+	volatile uint32_t CR1; // offset 0x00
+	volatile uint32_t CR2;
+	volatile uint32_t SMCR;
+	volatile uint32_t DIER;
+	volatile uint32_t SR;
+	volatile uint32_t EGR;
+	volatile uint32_t CCMR1;
+	volatile uint32_t CCMR2;
+	volatile uint32_t CCER;
+	volatile uint32_t CNT;
+	volatile uint32_t PSC;
+	volatile uint32_t ARR;
+	volatile uint32_t RESERVED_0;
+	volatile uint32_t CCR1;
+	volatile uint32_t CCR2;
+	volatile uint32_t CCR3;
+	volatile uint32_t CCR4;
+	volatile uint32_t RESERVED_1;
+	volatile uint32_t DCR;
+	volatile uint32_t DMAR; // offset 0x4C
+	volatile uint32_t TIM2_OR; 
+	volatile uint32_t TIM5_OR; 
+
+} TIM_2_to_5_Type;
+
+
+#define TIM2 ((TIM_2_to_5_Type*) TIM2_BASE)
+#define TIM3 ((TIM_2_to_5_Type*) TIM3_BASE)
+#define TIM4 ((TIM_2_to_5_Type*) TIM4_BASE)
+#define TIM5 ((TIM_2_to_5_Type*) TIM5_BASE)
+
+
+/******* END TIM2 to TIM5 ********/ 
+
+/******* END TIMERS *********/
+
+/********** U(S)ART ************/
+
+#define USART1_BASE 0x40011000U
+#define USART2_BASE 0x40004400U
+#define USART3_BASE 0x40004800U
+#define USART6_BASE 0x40011400U
+
+#define UART4_BASE 0x40004C00U
+#define UART5_BASE 0x40005000U
+#define UART7_BASE 0x40007800U
+#define UART8_BASE 0x40007C00U
+
+/* define bit masks for SR */
+
+#define USART_SR_PE			((uint32_t))0x00000001U)
+#define USART_SR_FE			((uint32_t))0x00000002U)
+#define USART_SR_NF			((uint32_t))0x00000004U)
+#define USART_SR_ORE		((uint32_t))0x00000008U)
+#define USART_SR_IDLE		((uint32_t))0x00000010U)
+#define USART_SR_RXNE		((uint32_t))0x00000020U)
+#define USART_SR_TC			((uint32_t))0x00000040U)
+#define USART_SR_TXE		((uint32_t))0x00000080U)
+#define USART_SR_LBD		((uint32_t))0x00000100U)
+#define USART_SR_CTS		((uint32_t))0x00000200U)
+
+/* define bit masks for BRR */
+
+#define USART_BRR_DIV_Fraction ((uint32_t)0x0000000FU)
+#define USART_BRR_DIV_Mantissa ((uint32_t)0x0000FFF0U)
+
+/* define bit masks for CR1 */
+
+#define USART_CR1_SBK			((uint32_t))0x00000001U)
+#define USART_CR1_RWU			((uint32_t))0x00000002U)
+#define USART_CR1_RE			((uint32_t))0x00000004U)
+#define USART_CR1_TE			((uint32_t))0x00000008U)
+#define USART_CR1_IDLEIE		((uint32_t))0x00000010U)
+#define USART_CR1_RXNEIE		((uint32_t))0x00000020U)
+#define USART_CR1_TCIE			((uint32_t))0x00000040U)
+#define USART_CR1_TXEIE			((uint32_t))0x00000080U)
+#define USART_CR1_PEIE			((uint32_t))0x00000100U)
+#define USART_CR1_PS			((uint32_t))0x00000200U)
+#define USART_CR1_PCE			((uint32_t))0x00000400U)
+#define USART_CR1_WAKE			((uint32_t))0x00000800U)
+#define USART_CR1_M				((uint32_t))0x00001000U)
+#define USART_CR1_UE			((uint32_t))0x00002000U)
+// bit 14 is reserved
+#define USART_CR1_OVER8			((uint32_t))0x00008000U)
+
+
+typedef struct USART_UART {
+
+	volatile uint32_t SR;
+	volatile uint32_t DR;
+	volatile uint32_t BRR;
+	volatile uint32_t CR1;
+	volatile uint32_t CR2;
+	volatile uint32_t CR3;
+	volatile uint32_t GTPR;
+
+} USART_Type;
+
+#define USART1 ((USART_Type*) USART1_BASE)
+#define USART2 ((USART_Type*) USART2_BASE)
+#define USART3 ((USART_Type*) USART3_BASE)
+#define USART6 ((USART_Type*) USART6_BASE)
+
+#define UART4 ((USART_Type*) UART4_BASE)
+#define UART5 ((USART_Type*) UART5_BASE)
+#define UART7 ((USART_Type*) UART7_BASE)
+#define UART8 ((USART_Type*) UART8_BASE)
+
+/******* END U(S)ART ***********/
 
 
 #endif // header guard

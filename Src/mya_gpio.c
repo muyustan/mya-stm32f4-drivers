@@ -8,27 +8,37 @@
 #include "mya_gpio.h"
 
 
-void mya_gpio_pin_config (GPIO_Type* Port, uint32_t Pin, GPIO_Mode Mode, GPIO_PuPd PuPd){
+void mya_gpio_pin_config (GPIO_Type* GPIOx, uint32_t GPIO_PIN_x, GPIO_Mode Mode, GPIO_PuPd PuPd){
 
-	Port->MODER &= ~(0x03 << 2 * Pin); // clear first, default to "input"
-	Port->OTYPER &= ~(0x01 << Pin); // clear first, default to "push-pull"
-	Port->PUPDR &= ~(0x03 << 2 * Pin); // clear first, default to "no pull up or pull down"
-	Port->OSPEEDR &= ~(0x03 << 2 * Pin); // clear first, default to "low speed"
+	GPIOx->MODER &= ~(0x03 << 2 * GPIO_PIN_x); // clear first, default to "input"
+	GPIOx->OTYPER &= ~(0x01 << GPIO_PIN_x); // clear first, default to "push-pull"
+	GPIOx->PUPDR &= ~(0x03 << 2 * GPIO_PIN_x); // clear first, default to "no pull up or pull down"
+	GPIOx->OSPEEDR &= ~(0x03 << 2 * GPIO_PIN_x); // clear first, default to "low speed"
 
-	Port->MODER |= (Mode << 2 * Pin); // set the mode
-	// Port->OSPEEDR |= (OutSpeed << 2 * Pin); // set the output speed
+	GPIOx->MODER |= (Mode << 2 * GPIO_PIN_x); // set the mode
+	// GPIOx->OSPEEDR |= (OutSpeed << 2 * Pin); // set the output speed
 
-	if(Mode == GPIO_Mode_OUTPUT){
+	if (Mode == GPIO_Mode_OUTPUT){
 
-		Port->PUPDR &= ~(0x00 << 2 * Pin); // ensure no internal pull up or down
+		GPIOx->PUPDR &= ~(0x00 << 2 * GPIO_PIN_x); // ensure no internal pull up or down
 
 	}
 
 	else if (Mode == GPIO_Mode_INPUT){
 
-		Port->PUPDR &= ~(PuPd << 2 * Pin); // set the pu-pd choice
+		GPIOx->PUPDR &= ~(PuPd << 2 * GPIO_PIN_x); // set the pu-pd choice
 
 	}
+
+	else if (Mode == GPIO_Mode_AF) {
+		; // do nothing
+	}
+
+	else if (Mode == GPIO_Mode_ANALOG) {
+		; // do nothing
+	}
+
+	else {;} // invalid input for Mode
 
 
 	return;
@@ -36,26 +46,26 @@ void mya_gpio_pin_config (GPIO_Type* Port, uint32_t Pin, GPIO_Mode Mode, GPIO_Pu
 }
 
 
-uint8_t mya_gpio_pin_read(GPIO_Type* Port, uint16_t Pin) {
+uint8_t mya_gpio_pin_read(GPIO_Type* GPIOx, uint16_t GPIO_PIN_x) {
 
-	return (Port->IDR & (Pin));
+	return (GPIOx->IDR & (GPIO_PIN_x));
 
 }
 
-void mya_gpio_pin_write(GPIO_Type* Port, uint16_t Pin, GPIO_PinState State){
+void mya_gpio_pin_write(GPIO_Type* GPIOx, uint16_t GPIO_PIN_x, GPIO_PinState State){
 
 	/* just appreciate how beautiful BSRR is */
 
 	if(State == LOW) {
-		Port->BSRR = Pin << 16; // reset bits
+		GPIOx->BSRR = GPIO_PIN_x << 16; // reset bits
 	}
 	else
-		Port->BSRR = Pin; // set bits
+		GPIOx->BSRR = GPIO_PIN_x; // set bits
 
 	return;
 }
 
-void mya_gpio_pin_toggle(GPIO_Type* Port, uint16_t Pin){
+void mya_gpio_pin_toggle(GPIO_Type* GPIOx, uint16_t GPIO_PIN_x){
 
 	uint8_t pos = 0x00;
 	uint16_t hold = 0x00;
@@ -65,13 +75,20 @@ void mya_gpio_pin_toggle(GPIO_Type* Port, uint16_t Pin){
 
 		temp = (0x01 << pos);
 
-		if ((temp & Pin) != 0) { // do not use "== 1" instead of "!= 0"
+		if ((temp & GPIO_PIN_x) != 0) { // do not use "== 1" instead of "!= 0"
 			hold |= temp;
 		}
 
 	}
 
-	Port->ODR ^= hold;
+	GPIOx->ODR ^= hold;
 	
+	return;
+}
+
+void mya_gpio_alternate_func_config(GPIO_Type* GPIOx, uint8_t pinNumber, uint8_t GPIO_AF_x){
+
+	GPIOx->AFR[pinNumber >> 3] |= (GPIO_AF_x << (4 * pinNumber));
+
 	return;
 }

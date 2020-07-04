@@ -10,6 +10,9 @@
 /* sets system clock to 168 MHz */
 void mya_rcc_clock_config(void){
 
+	/* System Clock Frequency when PLL used is calculated as 
+	((INPUT_CLOCK (HSE_OR_HSI_IN_HZ) / PLL_M) * PLL_N) / PLL_P */
+
 	// FLASH (this part is a key PART!!!)
 	FLASH-> ACR |= (FLASH_ACR_LATENCY | FLASH_ACR_PRFTEN | FLASH_ACR_ICEN | FLASH_ACR_DCEN);
 	
