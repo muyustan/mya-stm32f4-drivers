@@ -27,11 +27,12 @@ typedef enum IRQn {
     NVIC_DMA1_Stream6 = 0x11,
     NVIC_ADC = 0x12, // ADC1, ADC2 and ADC3 global interrupts
     // to be continued...
+    NVIC_USART1 = 0x25,
 
-} NVIC_n;
+} NVIC_IRQn;
 
 
 
-void mya_nvic_enable(NVIC_n n);
+void mya_nvic_enable(NVIC_IRQn NVIC_x);
 
 #endif // MYA_NVIC_H

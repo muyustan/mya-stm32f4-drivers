@@ -80,6 +80,7 @@ void mya_gpio_pin_toggle(GPIO_Type* GPIOx, uint16_t GPIO_PIN_x){
 	return;
 }
 
+/* this function should be above pin config for respected pins */
 void mya_gpio_alternate_func_config(GPIO_Type* GPIOx, uint8_t pinNumber, uint8_t GPIO_AF_x){
 
 	GPIOx->AFR[pinNumber >> 3] |= (GPIO_AF_x << (4 * (pinNumber % 8)));

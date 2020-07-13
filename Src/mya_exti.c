@@ -1,6 +1,6 @@
 #include "mya_exti.h"
 
-/* EXTI should be enabled/initialized befor using */
+/* EXTI should be enabled/initialized before using */
 void mya_exti_init(){
 
 	RCC_SYSCFG_EN(); // activate SYSCFG clock

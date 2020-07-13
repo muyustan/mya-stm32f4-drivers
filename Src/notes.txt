@@ -1,0 +1,7 @@
+I have enabled the FPU in startup.s file
+FPU can work only if all operands are float
+Either cast them into float with (float) or use 3.14f instead of 3.14
+3.14 is double by default to compiler
+
+If the the clock speed will be set to high values w/ PLL,
+make sure to handle flash latency 

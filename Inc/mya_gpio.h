@@ -10,23 +10,6 @@
 
 #include "mya_stm32f407vg.h"
 
-#define GPIO_PIN_0  0x00000001U
-#define GPIO_PIN_1  0x00000002U
-#define GPIO_PIN_2  0x00000004U
-#define GPIO_PIN_3  0x00000008U
-#define GPIO_PIN_4  0x00000010U
-#define GPIO_PIN_5  0x00000020U
-#define GPIO_PIN_6  0x00000040U
-#define GPIO_PIN_7  0x00000080U
-#define GPIO_PIN_8  0x00000100U
-#define GPIO_PIN_9  0x00000200U
-#define GPIO_PIN_10 0x00000400U
-#define GPIO_PIN_11 0x00000800U
-#define GPIO_PIN_12 0x00001000U
-#define GPIO_PIN_13 0x00002000U
-#define GPIO_PIN_14 0x00004000U
-#define GPIO_PIN_15 0x00008000U
-
 #define GPIOA_EN() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN)
 #define GPIOB_EN() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN)
 #define GPIOC_EN() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN)
@@ -106,9 +89,9 @@ typedef enum MODER {
 
 typedef enum PUPDR {
 
-	GPIO_PuPd_NOPULL=	0b00,
-	GPIO_PuPd_UP =		0b01,
-	GPIO_PuPd_DOWN =	0b10
+	GPIO_PuPd_NoPull=	0b00,
+	GPIO_PuPd_Up =		0b01,
+	GPIO_PuPd_Down =	0b10
 	// 0x03 is reserved
 
 } GPIO_PuPd;

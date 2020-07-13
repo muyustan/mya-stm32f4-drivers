@@ -17,6 +17,7 @@
 #include "mya_usart.h"
 
 
+#include <stdio.h> // sprintf()
 #include <stdint.h>
 
 #endif /* MAIN_H_ */
